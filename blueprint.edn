@@ -1,10 +1,1 @@
-{:itonami.blueprint/id "cloud-itonami-isco-8160"
- :itonami.blueprint/name "Independent Food Processing Operations"
- :itonami.blueprint/isco-08 "8160"
- :itonami.blueprint/domain :manufacturing/food-processing
- :itonami.blueprint/license "AGPL-3.0-or-later"
- :itonami.blueprint/social-impact [:local-jobs :food-safety :worker-safety]
- :itonami.blueprint/governor :food-processing-governor
- :itonami.blueprint/robotics true
- :itonami.blueprint/required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger]
- :itonami.blueprint/status :public-oss}
+[{:itonami.blueprint/social-impact [:local-jobs :food-safety :worker-safety], :itonami.blueprint/domain :manufacturing/food-processing, :itonami.blueprint/required-technologies [:robotics :telemetry :dmn :bpmn :audit-ledger], :itonami.blueprint/isco-08 "8160", :itonami.blueprint/name "Independent Food Processing Operations", :itonami.blueprint/governor :food-processing-governor, :itonami.blueprint/robotics true, :db/id -1, :itonami.blueprint/status :public-oss, :itonami.blueprint/id "cloud-itonami-isco-8160", :itonami.blueprint/license "AGPL-3.0-or-later"}]
