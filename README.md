@@ -58,16 +58,16 @@ human-in-the-loop interrupt/resume via checkpointing.
                                            +-> :hold               (:hard? true)
 ```
 
-- `src/food_processing/store.cljc` — `Store` protocol + `MemStore`:
+- `src/food_processing/store.cljk` — `Store` protocol + `MemStore`:
   registered batches (`allergen-cross-contact-risk?`), committed
   records, an append-only audit ledger.
-- `src/food_processing/advisor.cljc` — `Advisor` protocol; `mock-advisor`
+- `src/food_processing/advisor.cljk` — `Advisor` protocol; `mock-advisor`
   (deterministic, default) proposes a processing operation from a
   request; `llm-advisor` wraps a `langchain.model/ChatModel` — either
   way the advisor only ever produces a `:propose`-effect proposal,
   never a committed record, and LLM parse failures always yield
   `confidence 0.0` (forces escalation, never fabricated confidence).
-- `src/food_processing/governor.cljc` — `ProcessingGovernor/check`: a
+- `src/food_processing/governor.cljk` — `ProcessingGovernor/check`: a
   pure function, wired as its own `:govern` node. Hard invariants
   (unregistered batch, a proposal whose `:effect` isn't `:propose`)
   always route to `:hold`. The escalation invariant — a `:release` op
@@ -75,7 +75,7 @@ human-in-the-loop interrupt/resume via checkpointing.
   `:request-approval` (a batch can never reach market without an
   explicit human allergen-labelling review), as does low advisor
   confidence.
-- `src/food_processing/actor.cljc` — `build-graph`, `run-request!`,
+- `src/food_processing/actor.cljk` — `build-graph`, `run-request!`,
   `approve!`: the `langgraph.graph/state-graph` wiring itself.
 
 ```bash
