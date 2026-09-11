@@ -79,7 +79,7 @@ human-in-the-loop interrupt/resume via checkpointing.
   `approve!`: the `langgraph.graph/state-graph` wiring itself.
 
 ```bash
-clojure -M:test   # 10 tests, 26 assertions, green
+kbb -M:test   # 10 tests, 26 assertions, green
 ```
 
 This is what backs this repo's `:maturity :implemented` entry in
