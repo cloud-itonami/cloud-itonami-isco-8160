@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a food-line monitoring robot performs
+;; temperature checks, sample collection and line-clearance verification;
+;; working near cutting/mixing equipment or in allergen cross-contact zones
+;; needs human sign-off. Its physical work is heat and cleaning: when a
+;; product on the oven line reaches its core temperature, whether the CIP
+;; clean before line clearance flows fast enough, and the sample run to QA.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-8160"
+ :cases
+ [{:id :patty-core-temperature
+   :kind :thermal
+   :procedure "meat patty cooked from both sides in a 180 C line oven; half thickness is modelled, the centre is the insulated back face the robot's probe checks for 68 C"
+   :params {:conductivity-w-mk 0.45 :density-kg-m3 1050.0 :specific-heat-j-kgk 3500.0
+            :t0-c 4.0 :t-hot-c 180.0 :h-front-w-m2k 40.0 :h-back-w-m2k 0.0 :t-back-ambient-c 4.0
+            :threshold-c 68.0 :duration-s 2400.0 :nodes 21}
+   :sweep {:param :thickness-m :values [0.005 0.0075 0.010 0.0125 0.015]}
+   :quantity :time-to-threshold-s
+   :limit {:max 900.0 :basis "estimate: 15 min dwell of a continuous line oven; the 68 C core target itself is also an estimate for comminuted meat"}
+   :boundary {:lo 0.003 :hi 0.02}}
+  {:id :cip-caustic-velocity
+   :kind :pipe-flow
+   :procedure "CIP caustic solution circulated through the 47.5 mm product line before the robot verifies line clearance"
+   :params {:diameter-m 0.0475 :length-m 60.0 :roughness-m 1.5e-6
+            :density-kg-m3 1020.0 :viscosity-pa-s 0.5e-3 :pump-efficiency 0.60}
+   :sweep {:param :q-m3s :values [0.001 0.002 0.003 0.004 0.005]}
+   :quantity :velocity-mps
+   :limit {:min 1.5 :basis "estimate: common CIP practice of at least ~1.5 m/s in-line velocity for turbulent wall cleaning"}
+   :boundary {:lo 0.0005 :hi 0.008}}]}
