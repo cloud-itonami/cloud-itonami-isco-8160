@@ -1,5 +1,5 @@
 (ns food-processing.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [food-processing.actor :as actor]
             [food-processing.store :as store]))
 
